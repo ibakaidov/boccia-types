@@ -1,4 +1,4 @@
-declare type textids = "start" | "end" | 'game' | 'wait' | 'message' | 'error';
+declare type textids = "start" | "end" | 'game' | 'wait' | 'message' | 'error' | 'startMatch';
 export declare class MessageTexts {
     private TEXTS;
     prepare(id: textids, params?: {
