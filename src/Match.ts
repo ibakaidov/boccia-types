@@ -10,6 +10,7 @@ export interface Match{
     players: [string, string],
     gclass: gclass,
     score: [number[], number[]],
+    time: [number[], number[]],
     referee: string,
     refereeTimer: string
 }
