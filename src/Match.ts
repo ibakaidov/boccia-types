@@ -11,6 +11,7 @@ export interface Match{
     gclass: gclass,
     score: [number[], number[]],
     time: [number[], number[]],
+    tieScore: [boolean, boolean],
     referee: string,
     refereeTimer: string
 }
