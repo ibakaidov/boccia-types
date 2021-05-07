@@ -1,4 +1,3 @@
-import { Cort } from "./Cort";
 import { Match } from "./Match";
 
 type textids = "start" | "end" | 'game' | 'wait' | 'message' | 'error'|'startMatch';
@@ -7,7 +6,7 @@ export class MessageTexts {
   private TEXTS: { [key in textids]: string | Function } = {
     "start": "Добро пожаловать в бота, #name. Я буду отправлять вам результаты матчей. Если вы хотите получать результат по энду, введите поэнду, если хотите получать результат по игре, введите поигре. \nНайти информацию о играх спортсмена можно набрав: поиск фамилия, например, поиск Петров. \nДля поиска по группам введите \"группа [буква группы] [класс]\". Для пар вводить BC3П. Для команд тройка. Например: группа D BC4.",
     "end": ({match, names}:{match:Match, names:[string, string]}, { reduce = true }) => `⏰ Корт ${match.cortId}. ${match.gclass}. ${match.groupStep ? "Группа " + match.group : "1/" + match.semi + " финала"}\n🔴 ${reduce ? MessageTexts.reduceName(names[0]) : names[0]} – ${reduce ? MessageTexts.reduceName(names[1]) : names[1]} 🔵. \n${match.end+1} энд.\n🔴 ${match.score[0].reduce((a,b)=>a+b)} – ${match.score[1].reduce((a,b)=>a+b)} 🔵.`,
-    "game": (cort: Cort, { reduce = true }) => `⛳️ Корт ${cort.id + 1}. ${cort.classGame}. ${cort.groupStep ? "Группа " + cort.group : "1/" + cort.semi + " финала"}\nИгра окончена!\n🔴 ${reduce ? MessageTexts.reduceName(cort.redName) : cort.redName} - ${reduce ? MessageTexts.reduceName(cort.blueName) : cort.blueName} 🔵. \n${cort.end === 5 || cort.end === 7 ? ("На тай-брейке победили " + (cort.redScore > cort.blueScore ? "🔴" : "🔵")) : "🔴" + cort.redScore + " – " + cort.blueScore + "🔵"} .`,
+    "game": ({match, names}:{match:Match, names:[string, string]}, { reduce = true }) => `🏁 Корт ${match.cortId}. ${match.gclass}. ${match.groupStep ? "Группа " + match.group : "1/" + match.semi + " финала"}\nИгра окончена!\n🔴 ${reduce ? MessageTexts.reduceName(names[0]) : names[0]} – ${reduce ? MessageTexts.reduceName(names[1]) : names[1]} 🔵. \n${match.end+1} энд.\n🔴 ${match.score[0].reduce((a,b)=>a+b)} – ${match.score[1].reduce((a,b)=>a+b)} 🔵.`,
     wait: "Пожалуйста, ожидайте.",
     message: "Сообщение от секретариата:\n #message",
     startMatch:({match, names}:{match:Match, names:[string, string]})=>`⏰ Корт ${match.cortId }. Начался матч между:\n🔴 ${names[0]} - ${names[1] }🔵.`,
