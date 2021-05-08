@@ -9,9 +9,18 @@ export interface Match{
     cortId: number,
     players: [string, string],
     gclass: gclass,
-    score: [number[], number[]],
-    time: [number[], number[]],
+    score: [ScoreHolder, ScoreHolder],
+    time: [TimeHolder, TimeHolder],
     tieScore: [boolean, boolean],
     referee: string,
     refereeTimer: string
+}
+
+interface ScoreHolder {
+    playyerIndex: 0|1
+    score: number[]
+}
+interface TimeHolder {
+    playyerIndex: 0|1
+    time: number[]
 }
