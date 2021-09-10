@@ -8,4 +8,5 @@ export interface Competition {
     countMatches: number;
     mainReffery: string;
     organizer: string;
+    competitors: string[];
 }
