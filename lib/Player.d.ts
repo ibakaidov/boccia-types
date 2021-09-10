@@ -1,10 +1,11 @@
+import { GClass } from "./GClass";
 export default class Player {
     id: string;
     age: "Ю" | "В";
     birthday: number;
     coach: string;
     fullName: string;
-    gclass: "BC1" | "BC2" | "BC3" | "BC4";
+    gclass: GClass;
     gender: boolean;
     org: string;
     rank: string;
