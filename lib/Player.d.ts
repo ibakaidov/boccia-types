@@ -10,6 +10,7 @@ export default class Player {
     org: string;
     rank: string;
     region: string;
+    rating: number;
     team: boolean | null;
     static validate(player: Player): void;
     static fromData(data: Player): Player;
