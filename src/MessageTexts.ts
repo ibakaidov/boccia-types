@@ -6,7 +6,7 @@ export class MessageTexts {
   private TEXTS: { [key in textids]: string | Function } = {
     "start": "Добро пожаловать в бота, #name. Я буду отправлять вам результаты матчей. Если вы хотите получать результат по энду, введите поэнду, если хотите получать результат по игре, введите поигре. \nНайти информацию о играх спортсмена можно набрав: поиск фамилия, например, поиск Петров. \nДля поиска по группам введите \"группа [буква группы] [класс]\". Для пар вводить BC3П. Для команд тройка. Например: группа D BC4.",
     "end": ({ match, names }: { match: Match, names: [string, string] }, { reduce = true }) => `⏰ Корт ${match.cortId}. ${match.gclass}. ${match.groupStep ? "Группа " + match.group : "1/" + match.semi + " финала"}\n🔴 ${reduce ? MessageTexts.reduceName(names[0]) : names[0]} – ${reduce ? MessageTexts.reduceName(names[1]) : names[1]} 🔵. \n${match.end + 1} энд.\n🔴 ${match.score[0].score.reduce((a, b) => a + b)} – ${match.score[1].score.reduce((a, b) => a + b)} 🔵.`,
-    "game": ({ match, names }: { match: Match, names: [string, string] }, { reduce = true }) => `🏁 Корт ${match.cortId}. ${match.gclass}. ${match.groupStep ? "Группа " + match.group : "1/" + match.semi + " финала"}\nИгра окончена!\n🔴 ${reduce ? MessageTexts.reduceName(names[0]) : names[0]} – ${reduce ? MessageTexts.reduceName(names[1]) : names[1]} 🔵. \n${match.tieScore.includes(true)?'Они дошли до тай-брейка\n':''} 🔴 ${match.score[0].score.reduce((a, b) => a + b)} – ${match.score[1].score.reduce((a, b) => a + b)} 🔵.\n${match.tieScore.includes(true)?(match.tieScore.map(b=>b?'✅':'❌').join(' - ')):''}`,
+    "game": ({ match, names }: { match: Match, names: [string, string] }, { reduce = true }) => `🏁 Корт ${match.cortId}. ${match.gclass}. ${match.groupStep ? "Группа " + match.group : "1/" + match.semi + " финала"}\nИгра окончена!\n🔴 ${reduce ? MessageTexts.reduceName(names[0]) : names[0]} – ${reduce ? MessageTexts.reduceName(names[1]) : names[1]} 🔵. \n${match.tieScore.includes(true) ? 'Они дошли до тай-брейка\n' : ''} 🔴 ${match.score[0].score.reduce((a, b) => a + b)} – ${match.score[1].score.reduce((a, b) => a + b)} 🔵.\n${match.tieScore.includes(true) ? (match.tieScore.map(b => b ? '✅' : '❌').join(' - ')) : ''}`,
     wait: "Пожалуйста, ожидайте.",
     message: "Сообщение от секретариата:\n #message",
     startMatch: ({ match, names }: { match: Match, names: [string, string] }) => `⏰ Корт ${match.cortId}. Начался матч между:\n🔴 ${names[0]} - ${names[1]}🔵.`,
@@ -27,7 +27,8 @@ export class MessageTexts {
     return result;
   }
 
-  private static reduceName(name: string): string {
+  static reduceName(name: string, team = false): string {
+    if (team) return name;
     const [surname, ...other] = name.trim().split(' ');
     return (surname + ' ' + other.map(([symbol]) => symbol || '').join('. ')).trim();
   }

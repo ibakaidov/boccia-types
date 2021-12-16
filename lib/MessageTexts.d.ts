@@ -6,6 +6,6 @@ export declare class MessageTexts {
     }, options?: {
         [key: string]: boolean;
     }): any;
-    private static reduceName;
+    static reduceName(name: string, team?: boolean): string;
 }
 export {};
